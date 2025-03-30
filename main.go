@@ -2,42 +2,32 @@ package main
 
 import (
 	"fmt"
-	"math"
+	"strings"
 )
 
-// Function that takes a string and prints a greeting message
-func sayGreeting(name string) {
-	fmt.Println("Hello, " + name + "!")
-}
+func getInitials(n string) (string, string) {
+	s := strings.ToUpper(n)
+	names := strings.Split(s, " ")
 
-// Function that takes a string and prints a goodbye message
-func sayGoodbye(name string) {
-	fmt.Println("Goodbye, " + name + "!")
-}
-
-// Function that takes a slice of strings and a function as arguments
-func cycle(n []string, f func(string)) {
-	// Iterate over the slice of names and call the function f for each name
-	for _, name := range n {
-		f(name)
+	var initials []string
+	for _, name := range names {
+		initials = append(initials, name[0:1])
 	}
-}
 
-func circleArea(r float64) float64 {
-	return math.Pi * r * r
+	if len(initials) > 1 {
+		return initials[0], initials[1]
+	}
+
+	return initials[0], "_"
 }
 
 func main() {
-	sayGreeting("Alice")
-	sayGoodbye("Bob")
+	fn1, sn1 := getInitials("Zhu Yuan")
+	fmt.Println(fn1, sn1) // Z Y
 
-	names := []string{"Vaan", "Penelo", "Balthier", "Fran", "Basch", "Ashe", "Vayne"}
-	cycle(names, sayGreeting)
-	cycle(names, sayGoodbye)
+	fn1, sn1 = getInitials("Ellen Joe")
+	fmt.Println(fn1, sn1) // E J
 
-	a1 := circleArea(10.5)
-	a2 := circleArea(15)
-
-	fmt.Println(a1, a2)
-	fmt.Printf("Circle 1 is %0.3f and Circle 2 is %0.3f\n", a1, a2)
+	fn1, sn1 = getInitials("Burnice")
+	fmt.Println(fn1, sn1) // E _
 }
